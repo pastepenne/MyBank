@@ -128,7 +128,7 @@ public class Account
         targetAccount.ReceiveTransfer(convertedAmount, AccountId);
     }
 
-    internal void ReceiveTransfer(decimal amount, string fromAccountId)
+    private void ReceiveTransfer(decimal amount, string fromAccountId)
     {
         Balance += amount;
 

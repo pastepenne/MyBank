@@ -26,6 +26,23 @@ public class AccountTests
         Assert.That(account.Balance, Is.EqualTo(1000m));
         Assert.That(account.Currency, Is.EqualTo(Currency.RON));
     }
+    
+    [Test]
+    public void Constructor_WithDefaultParameters_CreatesAccountWithRONAndZeroBalance()
+    {
+        // Arrange
+        var mockRepository = new Mock<ITransactionRepository>();
+        var mockConverter = new Mock<ICurrencyConverter>();
+        var mockNotification = new Mock<INotificationService>();
+
+        // Act
+        var account = new Account(mockRepository.Object, mockConverter.Object, mockNotification.Object);
+
+        // Assert
+        Assert.That(account.Balance, Is.EqualTo(0m));
+        Assert.That(account.Currency, Is.EqualTo(Currency.RON));
+        Assert.That(account.AccountId, Is.Not.Null);
+    }
 
     [TestCase(Currency.RON, 1000)]
     [TestCase(Currency.EUR, 500)]
@@ -638,23 +655,6 @@ public class AccountTests
 
         // Assert
         Assert.That(account.Balance, Is.EqualTo(550m));
-    }
-
-    [Test]
-    public void Constructor_WithDefaultParameters_CreatesAccountWithRONAndZeroBalance()
-    {
-        // Arrange
-        var mockRepository = new Mock<ITransactionRepository>();
-        var mockConverter = new Mock<ICurrencyConverter>();
-        var mockNotification = new Mock<INotificationService>();
-
-        // Act
-        var account = new Account(mockRepository.Object, mockConverter.Object, mockNotification.Object);
-
-        // Assert
-        Assert.That(account.Balance, Is.EqualTo(0m));
-        Assert.That(account.Currency, Is.EqualTo(Currency.RON));
-        Assert.That(account.AccountId, Is.Not.Null);
     }
 
     [Test]
